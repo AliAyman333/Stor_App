@@ -9,6 +9,14 @@ class ProductController extends Controller
 {
     public function insert(Request $request)
     {
+        $user = $request->user();
+
+        if (!$user || !$user->employee()->exists()) {
+            return response()->json([
+                'message' => 'Only employees can add products.'
+            ], 403);
+        }
+
         $request->validate([
             'name' => 'required|string|max:255|unique:products,name',
             'description' => 'required|string|max:255',
