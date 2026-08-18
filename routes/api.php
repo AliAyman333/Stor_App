@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
@@ -56,3 +57,9 @@ Route::get('/customer/me', [CustomerController::class, 'me'])->middleware('auth:
 Route::post('/customers', [CustomerController::class, 'store'])->middleware('auth:sanctum');
 Route::put('/customers/{id}', [CustomerController::class, 'update'])->middleware('auth:sanctum');
 Route::delete('/customers/{id}', [CustomerController::class, 'destroy'])->middleware('auth:sanctum');
+
+// Route of Activity Log
+Route::get('/activity_logs', [ActivityLogController::class, 'index'])->middleware('auth:sanctum');
+Route::get('/activity_logs/{id}', [ActivityLogController::class, 'show'])->middleware('auth:sanctum');
+Route::post('/activity_logs', [ActivityLogController::class, 'store'])->middleware('auth:sanctum');
+Route::delete('/activity_logs/{id}', [ActivityLogController::class, 'destroy'])->middleware('auth:sanctum');
