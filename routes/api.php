@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
@@ -47,3 +48,11 @@ Route::get('/employee/me', [EmployeeController::class, 'me'])->middleware('auth:
 Route::post('/employees', [EmployeeController::class, 'store'])->middleware('auth:sanctum');
 Route::put('/employees/{id}', [EmployeeController::class, 'update'])->middleware('auth:sanctum');
 Route::delete('/employees/{id}', [EmployeeController::class, 'destroy'])->middleware('auth:sanctum');
+
+// Route of Customer
+Route::get('/customers', [CustomerController::class, 'index'])->middleware('auth:sanctum');
+Route::get('/customers/{id}', [CustomerController::class, 'show'])->middleware('auth:sanctum');
+Route::get('/customer/me', [CustomerController::class, 'me'])->middleware('auth:sanctum');
+Route::post('/customers', [CustomerController::class, 'store'])->middleware('auth:sanctum');
+Route::put('/customers/{id}', [CustomerController::class, 'update'])->middleware('auth:sanctum');
+Route::delete('/customers/{id}', [CustomerController::class, 'destroy'])->middleware('auth:sanctum');
