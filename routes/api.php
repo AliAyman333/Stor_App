@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 
@@ -29,3 +31,19 @@ Route::get('/product_index', [ProductController::class, 'product_index']);
 Route::get('/product_show/{id}', [ProductController::class, 'product_show']);
 Route::put('/product_update/{id}', [ProductController::class, 'product_update']);
 Route::delete('/product_delete/{id}', [ProductController::class, 'product_delete']);
+
+// Route of Admin
+Route::get('/admins', [AdminController::class, 'index'])->middleware('auth:sanctum');
+Route::get('/admins/{id}', [AdminController::class, 'show'])->middleware('auth:sanctum');
+Route::get('/admin/me', [AdminController::class, 'me'])->middleware('auth:sanctum');
+Route::post('/admins', [AdminController::class, 'store'])->middleware('auth:sanctum');
+Route::put('/admins/{id}', [AdminController::class, 'update'])->middleware('auth:sanctum');
+Route::delete('/admins/{id}', [AdminController::class, 'destroy'])->middleware('auth:sanctum');
+
+// Route of Employee
+Route::get('/employees', [EmployeeController::class, 'index'])->middleware('auth:sanctum');
+Route::get('/employees/{id}', [EmployeeController::class, 'show'])->middleware('auth:sanctum');
+Route::get('/employee/me', [EmployeeController::class, 'me'])->middleware('auth:sanctum');
+Route::post('/employees', [EmployeeController::class, 'store'])->middleware('auth:sanctum');
+Route::put('/employees/{id}', [EmployeeController::class, 'update'])->middleware('auth:sanctum');
+Route::delete('/employees/{id}', [EmployeeController::class, 'destroy'])->middleware('auth:sanctum');
