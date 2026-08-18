@@ -6,6 +6,7 @@ use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 
@@ -63,3 +64,10 @@ Route::get('/activity_logs', [ActivityLogController::class, 'index'])->middlewar
 Route::get('/activity_logs/{id}', [ActivityLogController::class, 'show'])->middleware('auth:sanctum');
 Route::post('/activity_logs', [ActivityLogController::class, 'store'])->middleware('auth:sanctum');
 Route::delete('/activity_logs/{id}', [ActivityLogController::class, 'destroy'])->middleware('auth:sanctum');
+
+// Route of Order
+Route::get('/orders', [OrderController::class, 'index'])->middleware('auth:sanctum');
+Route::get('/orders/{id}', [OrderController::class, 'show'])->middleware('auth:sanctum');
+Route::post('/orders', [OrderController::class, 'store'])->middleware('auth:sanctum');
+Route::put('/orders/{id}', [OrderController::class, 'update'])->middleware('auth:sanctum');
+Route::delete('/orders/{id}', [OrderController::class, 'destroy'])->middleware('auth:sanctum');
