@@ -35,6 +35,7 @@ class UserController extends Controller
         $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',
+            'role' => 'required|string|in:admin,employee,customer',
         ]);
 
         // محاولة تسجيل الدخول بالبيانات المرسلة
@@ -47,6 +48,21 @@ class UserController extends Controller
         // جلب بيانات المستخدم بعد نجاح التحقق
         $user = Auth::user();
 
+        $roleRelations = [
+            'admin' => 'admin',
+            'employee' => 'employee',
+            'customer' => 'customer',
+        ];
+        $role = $request->string('role')->toString();
+
+        if (!$user->{$roleRelations[$role]}()->exists()) {
+            Auth::logout();
+
+            return response()->json([
+                'message' => 'The selected role is not assigned to this user',
+            ], 403);
+        }
+
         // تأكد من أن النموذج يدعم إنشاء التوكنات قبل استدعاء createToken
         $token = null;
         if (method_exists($user, 'createToken')) {
@@ -56,6 +72,7 @@ class UserController extends Controller
         return response()->json([
             'message' => 'User logged in successfully',
             'user' => $user,
+            'role' => $role,
             'token' => $token,
         ], 200);
     }
